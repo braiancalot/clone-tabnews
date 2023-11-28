@@ -2,7 +2,7 @@ function Home() {
     return <div style={{ alignItems: "center", textAlign: "center"}}>
         <h2>Parabéns!!</h2>
         <br />
-        <p>Se você se chama Naara, mais conhecida como amor da minha vida, você acaba de ganhar um:</p>
+        <p>Se você se chama Naara, mais conhecida como amor da minha vida, acaba de ganhar um:</p>
         <br />
         <h1>VALE SUSHI</h1>
         <br />
