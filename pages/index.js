@@ -1,7 +1,8 @@
 function Home() {
   return (
     <div style={{ alignItems: "center", textAlign: "center" }}>
-      <h2>Parabéns!!</h2>
+      <h1>Clone TabNews</h1>
+      {/* <h2>Parabéns!!</h2>
       <br />
       <p>
         Se você se chama Naara, mais conhecida como amor da minha vida, acaba de
@@ -12,7 +13,7 @@ function Home() {
       <br />
       <h5>
         <i>Resgate no final de semana mais próximo.</i>
-      </h5>
+      </h5> */}
     </div>
   );
 }
