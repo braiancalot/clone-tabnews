@@ -1,3 +1,3 @@
 # clone-tabnews
 
-Repositório para aprender como desenvolver um projeto de fora a fora
+Repositório que engloba o desenvolvimento de um clone do [tab.news um](https://www.tabnews.com.br) de ponta a ponta
