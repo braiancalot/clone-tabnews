@@ -1,6 +1,7 @@
 import * as cookie from "cookie";
 import session from "models/session.js";
 import user from "models/user.js";
+import authorization from "models/authorization.js";
 
 const {
   MethodNotAllowedError,
@@ -97,7 +98,7 @@ function canRequest(feature) {
   return function canRequestMiddleware(req, res, next) {
     const useTryingToRequest = req.context.user;
 
-    if (useTryingToRequest.features.includes(feature)) {
+    if (authorization.can(useTryingToRequest, feature)) {
       return next();
     }
 
