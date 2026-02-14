@@ -62,7 +62,7 @@ function clearSessionCookie(res) {
   res.setHeader("Set-Cookie", setCookie);
 }
 
-async function injectAnonymousOrUser(req, res, next) {
+async function injectAnonymousOrUser(req, _, next) {
   if (req.cookies?.session_id) {
     await injectAuthenticatedUser(req);
     return next();
