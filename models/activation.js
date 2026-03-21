@@ -108,7 +108,7 @@ async function activateUserByUserId(userId) {
 
 async function sendEmailToUser(user, activationToken) {
   await email.send({
-    from: "CloneTabNews <contato@clone-tabnews.teshi.com.br>",
+    from: "CloneTabNews <contato@alerts.clone-tabnews.teshi.com.br>",
     to: user.email,
     subject: "Ative seu cadastro no CloneTabNews!",
     text: `${user.username}, clique no link abaixo para ativar seu cadastro no CloneTabNews.
