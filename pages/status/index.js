@@ -1,4 +1,7 @@
 import useSwr from "swr";
+import DefaultLayout from "interface/DefaultLayout";
+import { Banner, Heading, Stack } from "@primer/react";
+import { Card } from "@primer/react/experimental";
 
 async function fetchAPI(key) {
   const response = await fetch(key);
@@ -8,12 +11,13 @@ async function fetchAPI(key) {
 
 export default function StatusPage() {
   return (
-    <>
-      <h1>Status</h1>
-      <UpdatedAt />
-      <br />
-      <Status />
-    </>
+    <DefaultLayout contentWidth="medium" metadata={{ title: "Status" }}>
+      <Stack gap="spacious">
+        <Heading as="h1">Status</Heading>
+        <Status />
+        <UpdatedAt />
+      </Stack>
+    </DefaultLayout>
   );
 }
 
@@ -28,7 +32,11 @@ function UpdatedAt() {
     updatedAtText = new Date(data.updated_at).toLocaleString("pt-BR");
   }
 
-  return <div>Ultima atualização: {updatedAtText}</div>;
+  return (
+    <Banner variant="info" layout="compact">
+      <Banner.Title>Ultima atualização: {updatedAtText}</Banner.Title>
+    </Banner>
+  );
 }
 
 function Status() {
@@ -36,20 +44,42 @@ function Status() {
     refreshInterval: 2000,
   });
 
-  let databaseStatus;
+  if (isLoading || !data) return;
 
-  if (isLoading) return <div>Carregando...</div>;
-
-  if (!data?.dependencies?.database)
-    return <div>Não foi possível obter as informações.</div>;
-
-  databaseStatus = data.dependencies.database;
+  const database = data.dependencies.database;
+  const openedConnections = database.opened_connections;
+  const maxConnections = database.max_connections;
+  const version = database.version ?? "-";
 
   return (
-    <>
-      <div>Versão do Banco de Dados: {databaseStatus.version}</div>
-      <div>Número máximo de conexões: {databaseStatus.max_connections}</div>
-      <div>Conexões abertas: {databaseStatus.opened_connections}</div>
-    </>
+    <Stack>
+      <Heading as="h2" variant="medium">
+        Database
+      </Heading>
+
+      <Stack direction={{ narrow: "vertical", regular: "horizontal" }}>
+        <Stack.Item grow>
+          <Card>
+            <Card.Heading>Conexões abertas</Card.Heading>
+            <Card.Description>{openedConnections}</Card.Description>
+            <Card.Metadata>Uso neste instante</Card.Metadata>
+          </Card>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Card>
+            <Card.Heading>Conexões máximas</Card.Heading>
+            <Card.Description>{maxConnections}</Card.Description>
+            <Card.Metadata>Conexões disponíveis</Card.Metadata>
+          </Card>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Card>
+            <Card.Heading>Versão</Card.Heading>
+            <Card.Description>{version}</Card.Description>
+            <Card.Metadata>Versão em execução</Card.Metadata>
+          </Card>
+        </Stack.Item>
+      </Stack>
+    </Stack>
   );
 }
